@@ -1,0 +1,10 @@
+{
+    // Possible browser options are all at:
+    // docs.python.org/3.3/library/webbrowser.html#webbrowser.get
+    // For example:
+    //     'chrome'
+    //     'safari'
+    //     'firefox'
+    "browser": "chrome",
+    "openInBrowser": true
+}
