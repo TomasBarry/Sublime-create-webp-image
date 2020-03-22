@@ -1,0 +1,8 @@
+Create WebP Image
+-------------------------------
+
+Thank you for installing the "Create WebP Image" package.
+
+In order to use this package you must have the cwebp binary installed. Find the appropraite download here:
+
+https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
