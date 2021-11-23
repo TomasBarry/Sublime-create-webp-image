@@ -11,10 +11,6 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
         'gif'
     ]
 
-    def __init__(self, window):
-        self.variables = window.extract_variables()
-        self.settings = sublime.load_settings("CreateWebpImage.sublime-settings")
-
     def run(self):
         """run
 
@@ -34,18 +30,27 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
             - openInBrowser = True
             - browser = 'chrome'
         """
-        base_path = self.variables['file_path']
-        file_name_without_extension = self.variables['file_base_name']
+        settings = self.settings()
+        variables = self.variables()
 
-        input_file_path = self.variables['file']
+        base_path = variables['file_path']
+        file_name_without_extension = variables['file_base_name']
+
+        input_file_path = variables['file']
         output_file_path = "{0}/{1}.webp".format(base_path, file_name_without_extension)
 
         os.system("cwebp {0} -o {1}".format(input_file_path, output_file_path))
 
-        if self.settings.get('openInBrowser', True) == True:
+        if settings.get('openInBrowser', True) == True:
             uri = 'file://' + output_file_path
 
-            browser = webbrowser.get(self.settings.get('browser', 'chrome'))
+            # We use Chrome as the default browser given that WebP is a format
+            # created by Google and not supported by all browsers
+            # https://developers.google.com/speed/webp/faq
+            #
+            # If the user would like to use an alternate browser they can do so
+            # by changing the default settings
+            browser = webbrowser.get(settings.get('browser', 'chrome'))
             browser.open_new_tab(uri)
 
         return None
@@ -60,7 +65,7 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
         correct equality check occurs (prevent files ending in .PNG from failing
         the check)
         """
-        file_extension = self.variables['file_extension']
+        file_extension = self.variables()['file_extension']
 
         return file_extension.lower() in self.VALID_FILE_EXTENSIONS
 
@@ -74,7 +79,7 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
         correct equality check occurs (prevent files ending in .PNG from failing
         the check)
         """
-        file_extension = self.variables['file_extension']
+        file_extension = self.variables()['file_extension']
 
         return file_extension.lower() in self.VALID_FILE_EXTENSIONS
 
@@ -83,3 +88,9 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
 
     def input(self, _rest):
         return None
+
+    def settings(self):
+        return sublime.load_settings("CreateWebpImage.sublime-settings")
+
+    def variables(self):
+        return self.window.extract_variables()
