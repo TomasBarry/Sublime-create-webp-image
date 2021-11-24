@@ -6,5 +6,5 @@
     //     'safari'
     //     'firefox'
     "browser": "chrome",
-    "openInBrowser": true
+    "open_in_browser": true
 }

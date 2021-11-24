@@ -27,7 +27,7 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
 
         The default value of settings:
 
-            - openInBrowser = True
+            - open_in_browser = True
             - browser = 'chrome'
         """
         settings = self.settings()
@@ -41,7 +41,7 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
 
         os.system("cwebp {0} -o {1}".format(input_file_path, output_file_path))
 
-        if settings.get('openInBrowser', True) == True:
+        if settings.get('open_in_browser', True) == True:
             uri = 'file://' + output_file_path
 
             # We use Chrome as the default browser given that WebP is a format
@@ -85,9 +85,6 @@ class CreateWebpImageCommand(sublime_plugin.WindowCommand):
 
     def description(self):
         return 'Convert a file to the WebP format'
-
-    def input(self, _rest):
-        return None
 
     def settings(self):
         return sublime.load_settings("CreateWebpImage.sublime-settings")
