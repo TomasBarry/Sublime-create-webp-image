@@ -1,0 +1,11 @@
+Create WebP Image 1.0.1
+-------------------------------
+
+Fixes:
+
+- The "Create WebP Image" command now shows for the image in the active tab. In 1.0.0 it only checked the file that was active when the window opened, so it was often hidden or did nothing.
+- Paths with spaces or shell characters now work.
+- If cwebp is missing or fails, you now see an error message instead of nothing.
+- The link opened in the browser now works on Windows.
+
+If you see "Could not run cwebp", make sure cwebp is installed and on the PATH that Sublime Text sees. On macOS, Sublime Text started from the Dock may not use your shell's PATH.
